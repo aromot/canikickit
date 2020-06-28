@@ -15,7 +15,5 @@
 //     return $router->app->version();
 // });
 
-$router->get('/', [
-    'as' => 'homepage',
-    'uses' => 'PageController@homepage'
-]);
+$router->get('/', ['as' => 'homepage', 'uses' => 'PageController@homepage']);
+$router->get('/main_app/init', ['as' => 'main_app.init', 'uses' => 'MainAppController@init']);

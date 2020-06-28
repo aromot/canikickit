@@ -20,6 +20,8 @@
 <body>
   <div id="app"></div>
 
+  {!! $initScript !!}
+
   <script src="http://localhost:8080/vendors.js"></script>
   <script src="http://localhost:8080/main_app.js"></script>
 

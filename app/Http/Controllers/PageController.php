@@ -6,6 +6,11 @@ class PageController extends Controller
 {
   public function homepage()
   {
-    return view('main');
+    $inputs = [
+      'initRoute' => route('main_app.init')
+    ];
+    $initScript = "<script>var CIKI_inputs = ".json_encode($inputs, JSON_PRETTY_PRINT)."</script>";
+
+    return view('main', compact('initScript'));
   }
 }
