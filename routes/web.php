@@ -17,3 +17,8 @@
 
 $router->get('/', ['as' => 'homepage', 'uses' => 'PageController@homepage']);
 $router->get('/main_app/init', ['as' => 'main_app.init', 'uses' => 'MainAppController@init']);
+
+$router->group(['prefix' => 'users'], function() use ($router) {
+  $router->post('register', ['as' => 'users.register', 'uses' => 'UserController@register']);
+
+});

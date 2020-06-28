@@ -9,7 +9,8 @@ class MainAppController extends Controller
   public function init()
   {
     $routes = [
-      'homepage' => route('homepage')
+      'homepage' => route('homepage'),
+      'users.register' => route('users.register')
     ];
     $user = Auth::user();
 
