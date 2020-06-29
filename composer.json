@@ -19,9 +19,12 @@
             "database/seeds",
             "database/factories"
         ],
+        "files": [
+            "app/Lib/Helpers.php"
+        ],
         "psr-4": {
             "App\\": "app/",
-            "CikiLib\\": "cikilib"
+            "CikiLib\\": "cikilib/"
         }
     },
     "autoload-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FaktClub\Framework\Lib;
+namespace CikiLib;
 
 use Hidehalo\Nanoid\Client;
 
