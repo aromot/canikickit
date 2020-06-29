@@ -20,5 +20,6 @@ $router->get('/main_app/init', ['as' => 'main_app.init', 'uses' => 'MainAppContr
 
 $router->group(['prefix' => 'users'], function() use ($router) {
   $router->post('register', ['as' => 'users.register', 'uses' => 'UserController@register']);
+  $router->get('confirm/{activation_key}', ['as' => 'users.confirm', 'uses' => 'UserController@confirm']);
 
 });
