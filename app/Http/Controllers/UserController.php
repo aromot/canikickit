@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\Users\UserHandler;
 use App\Mail\UserRegistration;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -26,22 +28,27 @@ class UserController extends Controller
       // Mail::to('somebody@example.org')->send(new MyEmail());
     }
 
-    // $email = new Email();
-    // $email->send();
+    UserHandler::setApiKeyCookie($user);
 
     return compact('inputs', 'user');
   }
 
-  public function confirm($activation_key)
+  public function confirm($activation_key, Request $request)
   {
     $user = User::where('activation_key', $activation_key)->first();
 
-    if(empty($user))
-      abort(500, "Could not find the user.");
+    if(empty($user)) {
+      // abort(500, "Could not find the user.");  // NON, on ne veut pas afficher d'erreur dans ce cas.
+      return redirect()->route('homepage'); // simple redirection (warning silencieux à logger)
+    }
 
     $user->confirm();
     $user->save();
 
-    return redirect()->route('homepage', ['confirm' => true]);
+    if( ! $request->hasCookie('canikeykit')) {
+      UserHandler::setApiKeyCookie($user);
+    }
+
+    return redirect()->route('homepage', ['userConfirm' => true]);
   }
 }

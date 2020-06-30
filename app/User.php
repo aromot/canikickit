@@ -49,7 +49,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 	 * @var array
 	 */
 	protected $hidden = [
-		'password',
+		'password', 'activation_key', 'active', 'confirmed_at', 'api_key', 
+		'created_at', 'date_pass_reset_limit', 'pass_reset_key', 'status'
 	];
 
 	static public function make(string $username, string $email, string $pass): self
@@ -70,6 +71,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
 	public function confirm()
 	{
+		$this->activation_key = null;
 		$this->status = self::STATUS_CONFIRMED;
 		$this->confirmed_at = Carbon::create()->now();
 	}

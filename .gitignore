@@ -5,3 +5,4 @@ Homestead.yaml
 .env
 .phpunit.result.cache
 Can I Kick It.code-workspace
+storage/email_dumps
