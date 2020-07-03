@@ -30,6 +30,11 @@ class UserHandler
     return md5(IdGenerator::generate(10));
   }
 
+  static public function generatePassResetKey(): string
+  {
+    return md5(IdGenerator::generate(10));
+  }
+
   static public function setApiKeyCookie(User $user): void
   {
     $expire = (new DateTime('+ 13 months'))->format('U');

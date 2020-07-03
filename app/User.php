@@ -4,6 +4,7 @@ namespace App;
 
 use App\Lib\Users\UserHandler;
 use CikiLib\IdGenerator;
+use DateTime;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -74,6 +75,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 		$this->activation_key = null;
 		$this->status = self::STATUS_CONFIRMED;
 		$this->confirmed_at = Carbon::create()->now();
+	}
+
+	public function setPassReset()
+	{
+		$this->pass_reset_key = UserHandler::generatePassResetKey();
+    $this->date_pass_reset_limit = (new DateTime('+ 24 hours'))->format('Y-m-d H:i:s');
+	}
+
+	public function resetPassword(string $newPass)
+	{
+		$this->pass_reset_key = null;
+		$this->date_pass_reset_limit = null;
+		$this->password = UserHandler::hashPassword($newPass);
 	}
 
 	public function isActive(): bool

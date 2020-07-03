@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\Apps\MainAppHandler;
 use App\Lib\Users\UserHandler;
+use App\Mail\UserPasswordReset;
 use App\Mail\UserRegistration;
 use App\User;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -21,13 +23,7 @@ class UserController extends Controller
     $user->save();
 
     $email = new UserRegistration($user);
-    if(isDev()) {
-      $dumpFile = storage_path('email_dumps/'. date('H-m-d__his') . '.html');
-      makePathDir($dumpFile);
-      file_put_contents($dumpFile, $email->render());
-    } else {
-      // Mail::to('somebody@example.org')->send(new MyEmail());
-    }
+    $this->sendEmail($email, $user);
 
     UserHandler::setApiKeyCookie($user);
 
@@ -72,7 +68,7 @@ class UserController extends Controller
       UserHandler::setApiKeyCookie($user);
     }
 
-    return redirect()->route('homepage', ['userConfirm' => true]);
+    return MainAppHandler::render(['userConfirm' => true]);
   }
 
   public function login(Request $request)
@@ -91,13 +87,68 @@ class UserController extends Controller
 
     UserHandler::setApiKeyCookie($user);
     return compact('user');
-    // return redirect()->route('homepage');
   }
 
   public function logout(Request $request)
   {
     setcookie(UserHandler::getApiKeyToken(), '', time() - 99999, '/');  // delete cookie
     return ['user' => null];
-    // return redirect()->route('homepage', ['logout' => true]);
+  }
+
+  public function sendPasswordReset(Request $request)
+  {
+    $inputs = $request->all();
+
+    // @todo validation
+
+    $user = User::where('email', $inputs['email'])->first();
+
+    if(empty($user)) {
+      return [];
+    }
+
+    $user->setPassReset();
+    $user->save();
+
+    $email = new UserPasswordReset($user);
+    $this->sendEmail($email, $user);
+
+    return [];
+  }
+
+  public function formResetPassword($pass_reset_key)
+  {
+    return MainAppHandler::render(['resetPass' => true]);
+  }
+
+  public function resetPassword(Request $request)
+  {
+    $inputs = $request->all();
+
+    // @todo validation
+
+    if($inputs['new_password'] !== $inputs['new_password_confirmation'])
+      return ['error' => "Wrong password confirmation", 'field' => 'new_password_confirmation'];
+
+    $user = User::where('pass_reset_key', $inputs['resetKey'])->first();
+
+    if(empty($user))
+      return ['error' => 'Error resetting the password.'];
+
+    $user->resetPassword($inputs['new_password']);
+    $user->save();
+
+    return [];
+  }
+
+  private function sendEmail(Mailable $email, User $user): void
+  {
+    if(isDev()) {
+      $dumpFile = storage_path('email_dumps/'. date('Y-m-d__His') . '.html');
+      makePathDir($dumpFile);
+      file_put_contents($dumpFile, $email->render());
+    } else {
+      // Mail::to('somebody@example.org')->send(new MyEmail());
+    }
   }
 }
