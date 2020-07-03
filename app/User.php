@@ -75,4 +75,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 		$this->status = self::STATUS_CONFIRMED;
 		$this->confirmed_at = Carbon::create()->now();
 	}
+
+	public function isActive(): bool
+	{
+		if(is_bool($this->active))
+			return $this->active;
+
+		if(is_numeric($this->active))
+			return $this->active === 1;
+
+		return (string) $this->active === '1';
+	}
+
+	public function isConfirmed(): bool
+	{
+		return $this->status === self::STATUS_CONFIRMED;
+	}
 }

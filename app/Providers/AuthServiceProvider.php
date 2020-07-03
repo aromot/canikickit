@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Lib\Users\UserHandler;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -33,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
 
 		$this->app['auth']->viaRequest('api', function (Request $request) {
 
-			$key = $request->cookie('canikeykit');
+			$key = $request->cookie(UserHandler::getApiKeyToken());
 
 			if(empty($key))
 				return null;

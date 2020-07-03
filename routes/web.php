@@ -18,10 +18,14 @@
 $router->get('/', ['as' => 'homepage', 'uses' => 'PageController@homepage']);
 
 $router->get('/main_app/init', ['as' => 'main_app.init', 'uses' => 'MainAppController@init']);
-// $router->get('/main_app/init', ['middleware' => 'auth', 'as' => 'main_app.init', 'uses' => 'MainAppController@init']);
 
 $router->group(['prefix' => 'users'], function() use ($router) {
   $router->post('register', ['as' => 'users.register', 'uses' => 'UserController@register']);
+  $router->post('edit', ['middleware' => 'auth', 'as' => 'users.edit', 'uses' => 'UserController@edit']);
   $router->get('confirm/{activation_key}', ['as' => 'users.confirm', 'uses' => 'UserController@confirm']);
-
+  $router->post('login', ['as' => 'users.login', 'uses' => 'UserController@login']);
+  $router->get('logout', ['middleware' => 'auth', 'as' => 'users.logout', 'uses' => 'UserController@logout']);
+  $router->get('{path:edit}', ['uses' => 'PageController@homepage']);
 });
+
+$router->get('/{path:register|login}', ['uses' => 'PageController@homepage']);

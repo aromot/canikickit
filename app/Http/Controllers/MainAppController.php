@@ -10,7 +10,10 @@ class MainAppController extends Controller
   {
     $routes = [
       'homepage' => route('homepage'),
-      'users.register' => route('users.register')
+      'users.register' => route('users.register'),
+      'users.login' => route('users.login'),
+      'users.logout' => route('users.logout'),
+      'users.edit' => route('users.edit'),
     ];
     $user = Auth::user();
 
