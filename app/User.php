@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Lib\Users\UserHandler;
+use App\Models\Role;
 use CikiLib\IdGenerator;
 use DateTime;
 use Illuminate\Auth\Authenticatable;
@@ -53,6 +54,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 		'password', 'activation_key', 'active', 'confirmed_at', 'api_key', 
 		'created_at', 'date_pass_reset_limit', 'pass_reset_key', 'status'
 	];
+
+	/**
+	 * The roles that belong to the user.
+	 */
+	public function roles()
+	{
+			return $this->belongsToMany(Role::class);
+	}
 
 	static public function make(string $username, string $email, string $pass): self
 	{

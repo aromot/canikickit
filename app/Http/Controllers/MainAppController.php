@@ -16,6 +16,7 @@ class MainAppController extends Controller
       'users.edit' => route('users.edit'),
       'users.sendPasswordReset' => route('users.sendPasswordReset'),
       'users.resetPassword' => route('users.resetPassword'),
+      'roles.install' => route('roles.install')
     ];
     $user = Auth::user();
 

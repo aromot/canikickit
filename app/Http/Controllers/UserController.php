@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Apps\MainAppHandler;
+use App\Lib\Roles\RoleHandler;
 use App\Lib\Users\UserHandler;
 use App\Mail\UserPasswordReset;
 use App\Mail\UserRegistration;
+use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -19,8 +22,17 @@ class UserController extends Controller
 
     // @todo validation
 
+    if(Role::count() === 0) {
+      RoleHandler::installRoles();
+    }
+
     $user = User::make($inputs['username'], $inputs['email'], $inputs['password']);
-    $user->save();
+    $role = Role::where('name', 'member')->first();
+    
+    DB::transaction(function() use ($user, $role) {
+      $user->save();
+      $user->roles()->save($role);
+    });
 
     $email = new UserRegistration($user);
     $this->sendEmail($email, $user);
@@ -118,7 +130,7 @@ class UserController extends Controller
 
   public function formResetPassword($pass_reset_key)
   {
-    return MainAppHandler::render(['resetPass' => true]);
+    return MainAppHandler::render(['resetPass' => true, 'pass_reset_key' => $pass_reset_key]);
   }
 
   public function resetPassword(Request $request)

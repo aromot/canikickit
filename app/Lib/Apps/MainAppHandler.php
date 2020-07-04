@@ -2,11 +2,14 @@
 
 namespace App\Lib\Apps;
 
+use App\Models\Role;
+
 class MainAppHandler {
   static public function render(array $payload = [])
   {
     $inputs = $payload + [
-      'initRoute' => route('main_app.init')
+      'initRoute' => route('main_app.init'),
+      'rolesInstalled' => Role::count() > 0
     ];
 
     // $updateInputs = function(array $inputs, string $token, $expected) use ($request) {
