@@ -22,8 +22,9 @@
 
   {!! $initScript !!}
 
-  <script src="http://localhost:8080/vendors.js"></script>
-  <script src="http://localhost:8080/main_app.js"></script>
+  @foreach ($mainAppScripts as $mainAppScript)
+    <script src="{{ $mainAppScript }}"></script>
+  @endforeach
 
 </body>
 </html>

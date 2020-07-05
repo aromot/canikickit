@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+
 // Mail configuration ----------------------------------------------------
 $app->configure('mail');
 $app->alias('mail.manager', Illuminate\Mail\MailManager::class);
@@ -70,7 +71,7 @@ $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 // end of Mail configuration ----------------------------------------------------
 
-// $app->configure('emails');
+$app->configure('frontendApps');
 
 /*
 |--------------------------------------------------------------------------

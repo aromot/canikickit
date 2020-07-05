@@ -19,3 +19,13 @@ function makePathDir(string $path, $mode = 0777): bool
 
   return file_exists($dir) ? true : mkdir($dir, $mode, true);
 }
+
+function public_path(string $path): string
+{
+  return base_path(empty($path) ? 'public' : 'public/' . ltrim($path, '/\\'));
+}
+
+function isWin(): bool
+{
+  return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+}

@@ -1,4 +1,9 @@
 {
-  "main_app.js": "/assets/main_app/main_app.4d868e87ce90c84780a4.js",
-  "vendors.js": "/assets/main_app/vendors.e0ed29861fc7567172d5.js"
+  "ForgotPassword.js": "/assets/main_app/ForgotPassword.f88c9912371b431250ec.js",
+  "Homepage.js": "/assets/main_app/Homepage.cb7270aed7641b1e3cb6.js",
+  "Login.js": "/assets/main_app/Login.3fe50da7351850d20eae.js",
+  "Register.js": "/assets/main_app/Register.ee6729d377800ebd109a.js",
+  "UserEdit.js": "/assets/main_app/UserEdit.bad1b293ec37fbc5947f.js",
+  "main_app.js": "/assets/main_app/main_app.f321d93f81631e1728af.js",
+  "vendors.js": "/assets/main_app/vendors.adf8807d76e8867c211a.js"
 }
