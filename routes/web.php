@@ -35,4 +35,8 @@ $router->group(['prefix' => 'roles'], function() use ($router) {
   $router->get('install', ['as' => 'roles.install', 'uses' => 'RoleController@install']);
 });
 
+$router->group(['prefix' => 'admin'], function() use ($router) {
+  $router->get('home', ['as' => 'admin.home', 'uses' => 'PageController@homepage']);
+});
+
 $router->get('/{path:register|login|forgot-password}', ['uses' => 'PageController@homepage']);

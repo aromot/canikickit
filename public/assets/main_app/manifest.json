@@ -1,9 +1,11 @@
 {
-  "ForgotPassword.js": "/assets/main_app/ForgotPassword.f88c9912371b431250ec.js",
-  "Homepage.js": "/assets/main_app/Homepage.cb7270aed7641b1e3cb6.js",
-  "Login.js": "/assets/main_app/Login.3fe50da7351850d20eae.js",
-  "Register.js": "/assets/main_app/Register.ee6729d377800ebd109a.js",
-  "UserEdit.js": "/assets/main_app/UserEdit.bad1b293ec37fbc5947f.js",
-  "main_app.js": "/assets/main_app/main_app.f321d93f81631e1728af.js",
-  "vendors.js": "/assets/main_app/vendors.adf8807d76e8867c211a.js"
+  "ForgotPassword.js": "/assets/main_app/ForgotPassword.a21a0c8eb282ca35415e.js",
+  "Homepage.js": "/assets/main_app/Homepage.3a2f188497bd24a4def8.js",
+  "Login.js": "/assets/main_app/Login.2d0d50f961446e3e33e6.js",
+  "Register.js": "/assets/main_app/Register.aba827d572a3ceb0bf45.js",
+  "ResetPassword.js": "/assets/main_app/ResetPassword.c43e486450417e4446d6.js",
+  "UserEdit.js": "/assets/main_app/UserEdit.5d68845a3f5b194f449b.js",
+  "admin_Home.js": "/assets/main_app/admin_Home.de274f34fe30c5c44a7f.js",
+  "main_app.js": "/assets/main_app/main_app.2364aa60e8861b61371b.js",
+  "vendors.js": "/assets/main_app/vendors.e3159d9bfb1bf402f56b.js"
 }
